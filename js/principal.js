@@ -1,45 +1,45 @@
 var titulo = (document.querySelector(".titulo"));
-    titulo.textContent = "IMC";
+titulo.textContent = "IMC";
 var subtitulo = (document.querySelector(".subtitulo"));
-    subtitulo.textContent = "Lista dos clientes";
+subtitulo.textContent = "Lista dos clientes";
 
-var paciente = (document.querySelector("#primeiro-paciente"));
-var tdPeso = paciente.querySelector(".info-peso");
-var peso = tdPeso.textContent;
-    console.log (paciente);
-    console.log (tdPeso);
-    console.log (peso); 
+var pacientes = document.querySelectorAll(".paciente");
 
-if (peso <= 0 || peso >= 300)
-{
-    alert ("Peso informado incorretamente");
-    tdPeso.textContent = "Erro !";
-    altura = "N/A"
+for (var i = 0; i < pacientes.length; i++) {
+    var paciente = pacientes[i];
+
+    var tdPeso = paciente.querySelector(".info-peso");
+    var peso = tdPeso.textContent;
+
+    var tdAltura = paciente.querySelector(".info-altura");
+    var altura = tdAltura.textContent;
+
+    var imc = peso / (altura * altura);
+    var imcPaciente = paciente.querySelector(".info-imc");
+    
+    if (imc >= 60 || imc <= 0)
+    {
+        imcPaciente.textContent = "Ocorreu algum erro";
+    } else {
+        imcPaciente.textContent = imc.toFixed(2);
+    }
+    
+    if (peso <= 0 || peso >= 300) {
+        alert("Peso informado incorretamente");
+        imcPaciente.textContent = "Erro no peso";
+        paciente.classList.add("paciente-invalido");
+    } 
+
+    if (altura < 0 || altura >= 3.00) {
+        alert("Altura informada incorretamente");
+        imcPaciente.textContent = "Erro na altura";
+        paciente.classList.add("paciente-invalido");
+    } 
+
+    if (imcPaciente.textContent == 'NaN') {
+        imcPaciente.textContent = "Não foi possivel calcular IMC";
+    }
+
+    
+
 }
-
-var tdAltura = paciente.querySelector(".info-altura");
-var altura = tdAltura.textContent;
-    console.log(altura);
-
-if (altura < 0 || altura >= 3.00)
-{
-    alert ("Altura informada incorretamente");
-    tdAltura.textContent = "Erro !";
-    altura = "N/A"
-}
-
-var IMC = peso / (altura * altura);
-
-console.log (IMC);
-
-var imcPrimeiroPaciente = (document.querySelector(".info-imc"));
-    imcPrimeiroPaciente.textContent = IMC;
-if (imcPrimeiroPaciente.textContent == 'NaN')
-{
-    imcPrimeiroPaciente.textContent = "Não foi possivel calcular IMC";
-}
-
-
-
-
-		
