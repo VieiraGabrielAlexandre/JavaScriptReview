@@ -16,7 +16,24 @@ for (var i = 0; i < pacientes.length; i++) {
 
     var imc = calculaImc(peso, altura);
     var imcPaciente = paciente.querySelector(".info-imc");
+
+    var pesoValido = validaPeso(peso);
+    var alturaValida = validaAltura(altura);
+
+    if (!pesoValido){
+        console.log("Peso invalido");
+        pesoValido = false;
+        tdPeso.textContent = "Peso invalido";
+        paciente.classList.add("paciente-invalido");
+    }
     
+    if (!alturaValida){
+        console.log ("Altura invalida");
+        alturaValida = false;
+        tdAltura.textContent = "Altura Invalida";
+        paciente.classList.add("paciente-invalido");
+    }
+
     if (imc >= 60 || imc <= 0)
     {
         imcPaciente.textContent = "Ocorreu algum erro";
@@ -24,18 +41,6 @@ for (var i = 0; i < pacientes.length; i++) {
         imcPaciente.textContent = calculaImc(peso, altura);
     }
     
-    if (peso <= 0 || peso >= 300) {
-        alert("Peso informado incorretamente");
-        imcPaciente.textContent = "Erro no peso";
-        paciente.classList.add("paciente-invalido");
-    } 
-
-    if (altura < 0 || altura >= 3.00) {
-        alert("Altura informada incorretamente");
-        imcPaciente.textContent = "Erro na altura";
-        paciente.classList.add("paciente-invalido");
-    } 
-
     if (imcPaciente.textContent == 'NaN') {
         imcPaciente.textContent = "Não foi possivel calcular IMC";
     }
@@ -48,6 +53,20 @@ function calculaImc(peso, altura){
     return imc.toFixed(2);
 }
 
-function mostraMensagem(){
-    console.log("Ola!");
+function validaPeso (peso){
+    if (peso <= 300 && peso > 0)
+    {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validaAltura (altura){
+    if (altura <= 3.00 && altura >=0.50)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
